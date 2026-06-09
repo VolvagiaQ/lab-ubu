@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kitty Button</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #1a1a2e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #big-button {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #ff4444, #aa0000);
+      border: 6px solid #ff6666;
+      color: white;
+      font-size: 1.4rem;
+      font-weight: bold;
+      font-family: sans-serif;
+      cursor: pointer;
+      box-shadow: 0 0 40px #ff000088, 0 8px 24px #00000088;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: transform 0.08s, box-shadow 0.08s;
+      position: relative;
+      z-index: 10;
+      user-select: none;
+    }
+
+    #big-button:hover {
+      box-shadow: 0 0 60px #ff0000bb, 0 8px 32px #000000aa;
+      transform: scale(1.04);
+    }
+
+    #big-button:active {
+      transform: scale(0.95);
+      box-shadow: 0 0 20px #ff000066, 0 4px 12px #00000088;
+    }
+
+    .kitty {
+      position: fixed;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px #00000099;
+      border: 3px solid white;
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      animation: popin 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+    }
+
+    .kitty:hover {
+      transform: scale(1.05);
+      transition: transform 0.15s;
+    }
+
+    @keyframes popin {
+      from { transform: scale(0) rotate(-10deg); opacity: 0; }
+      to   { transform: scale(1) rotate(0deg);  opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <button id="big-button">KITTY!</button>
+
+  <script>
+    const btn = document.getElementById('big-button');
+    const SIZE = 160;
+
+    btn.addEventListener('click', () => {
+      const img = document.createElement('img');
+      img.className = 'kitty';
+
+      const maxX = window.innerWidth  - SIZE;
+      const maxY = window.innerHeight - SIZE;
+      const x = Math.floor(Math.random() * maxX);
+      const y = Math.floor(Math.random() * maxY);
+
+      img.style.left = x + 'px';
+      img.style.top  = y + 'px';
+
+      img.src = `https://cataas.com/cat?v=${Date.now()}`;
+      img.alt = 'random kitty';
+
+      img.addEventListener('click', () => img.remove());
+
+      document.body.appendChild(img);
+    });
+  </script>
+
+</body>
+</html>
